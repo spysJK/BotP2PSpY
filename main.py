@@ -91,8 +91,64 @@ def menu(msg):
     )
 
 def teste(chat_id):
-    bot.send_message(chat_id, "Você escolheu 5 XMR")
-    
+    # Mensagem melhorada para a escolha de 5 XMR
+    try:
+        price = get_xmr()
+    except Exception:
+        price = None
+
+    amount = 5
+    if price:
+        total = round(price * amount, 2)
+        text = (
+            f"Você escolheu *{amount} XMR*\n"
+            f"Preço unitário: *{price} BRL*\n"
+            f"Valor total: *{total} BRL*\n\n"
+            "Confirme para receber instruções de pagamento ou cancele para voltar ao menu."
+        )
+    else:
+        text = (
+            "Você escolheu *5 XMR*\n"
+            "Não foi possível obter o preço agora. Tente novamente mais tarde."
+        )
+
+    teclado = types.InlineKeyboardMarkup(row_width=2)
+    teclado.add(
+        types.InlineKeyboardButton("✅ Confirmar Compra", callback_data="confirm_XMR_5"),
+        types.InlineKeyboardButton("❌ Cancelar", callback_data="cancel_XMR_5"),
+    )
+
+    bot.send_message(chat_id, text, reply_markup=teclado, parse_mode="Markdown")
+
+
+def confirmar_compra_xmr_5(call):
+    chat_id = call.message.chat.id
+    try:
+        price = get_xmr()
+    except Exception:
+        price = None
+
+    amount = 5
+    if price:
+        total = round(price * amount, 2)
+        text = (
+            f"✅ *Pedido Confirmado*\n"
+            f"Quantidade: *{amount} XMR*\n"
+            f"Total: *{total} BRL*\n\n"
+            "Envie o comprovante de pagamento neste chat para finalizar.\n"
+            "Após conferência, liberaremos as chaves/transferência."
+        )
+    else:
+        text = "✅ Pedido confirmado. Em breve enviaremos instruções de pagamento."
+
+    bot.send_message(chat_id, text, parse_mode="Markdown")
+
+
+def cancelar_compra_xmr_5(call):
+    chat_id = call.message.chat.id
+    bot.send_message(chat_id, "❌ Operação cancelada. Use /start para voltar ao menu.")
+
+
 @bot.callback_query_handler(func=lambda c: True)
 def callback_query(call):
     chat_id = call.message.chat.id
@@ -105,6 +161,10 @@ def callback_query(call):
         teste(chat_id)
     elif call.data == "moeda_XMR_10":
         teste(chat_id)
+    elif call.data == "confirm_XMR_5":
+        confirmar_compra_xmr_5(call)
+    elif call.data == "cancel_XMR_5":
+        cancelar_compra_xmr_5(call)
         
 # ==========================
 #     EXECUTAR TUDO
