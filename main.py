@@ -103,6 +103,8 @@ def callback_query(call):
         menu_usdt(chat_id)
     elif call.data == "moeda_XMR_5":
         teste(chat_id)
+    elif call.data == "moeda_XMR_10":
+        teste(chat_id)
         
 # ==========================
 #     EXECUTAR TUDO
