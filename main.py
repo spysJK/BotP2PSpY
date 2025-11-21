@@ -39,7 +39,7 @@ def get_xmr():
     return Teste("XMR", "BRL").requesicao()
 
 def apagar(chat_id, last_msg):
-    for i in range(3):
+    for i in range(10):
         try:
             bot.delete_message(chat_id, last_msg - i)
         except:
