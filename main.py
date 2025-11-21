@@ -98,8 +98,8 @@ def callback_query(call):
         menu_xmr(chat_id)
     elif call.data == "usdt":
         menu_usdt(chat_id)
-    elif call.data == "xmr":
-        menu_usdt(chat_id)
+    elif call.data == "moeda_XMR_5":
+        bot.send_message(chat_id, "Você escolheu 5 XMR")
 # ==========================
 #     EXECUTAR TUDO
 # ==========================
