@@ -90,6 +90,9 @@ def menu(msg):
         parse_mode="Markdown"
     )
 
+def teste(chat_id):
+    bot.send_message(chat_id, "Você escolheu 5 XMR")
+    
 @bot.callback_query_handler(func=lambda c: True)
 def callback_query(call):
     chat_id = call.message.chat.id
@@ -99,7 +102,8 @@ def callback_query(call):
     elif call.data == "usdt":
         menu_usdt(chat_id)
     elif call.data == "moeda_XMR_5":
-        bot.send_message(chat_id, "Você escolheu 5 XMR")
+        teste(chat_id)
+        
 # ==========================
 #     EXECUTAR TUDO
 # ==========================
