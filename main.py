@@ -244,3 +244,4 @@ if __name__ == "__main__":
         except Exception as erro:
             print("Erro no polling:", erro)
             sleep(3)
+            
